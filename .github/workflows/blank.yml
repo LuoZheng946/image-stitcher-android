@@ -1,5 +1,4 @@
 # This is a basic workflow to help you get started with Actions
-
 name: CI
 
 # Controls when the workflow will run
@@ -34,3 +33,17 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+
+      # Android APK 构建步骤（核心新增部分）
+      - name: Android APK builder
+        uses: kevingopalan/action_android_build@v1
+        with:
+          # Github secret token（用于自动发布APK到Release，建议配置）
+          # 需在仓库 Settings -> Secrets and variables -> Actions 中创建名为 GITHUB_TOKEN 的密钥
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # CI token（可选，根据你的CI服务需求配置）
+          # CI_TOKEN: ${{ secrets.CI_TOKEN }}
+          # 应用名称（可选，自定义你的APK名称）
+          APP_NAME: MyAndroidApp
+          # 包类型（可选，如 apk、aab 等，默认一般为 apk）
+          TYPEPACKAGE: apk
